@@ -1,0 +1,74 @@
+/* ====== HEADER THEME ====== */
+.app-header {
+  /* El contenedor completo del header (logo + navbar + botones) */
+  /* Color sólido: */
+  /* background: #0a3d62; */
+
+  /* O un degradado bonito: */
+  background: linear-gradient(135deg, #dc3535 0%, #cfc95d 100%);
+
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Ajustes de la navbar dentro del header */
+.app-header .app-navbar {
+  /* Hacemos que la barra “herede” el fondo del header */
+  background: transparent !important;
+}
+
+/* Marca y título */
+.app-header .navbar-brand,
+.app-header .brand-title {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+/* Enlaces de navegación */
+.app-header .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+.app-header .nav-link:hover,
+.app-header .nav-link:focus,
+.app-header .nav-link.active {
+  color: #fff !important;
+}
+
+/* Dropdown dentro del header */
+.app-header .dropdown-menu {
+  /* Fondo claro para legibilidad; si prefieres oscuro, cámbialo */
+  background: #ffffff;
+  border: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+.app-header .dropdown-item {
+  color: #111827;
+}
+.app-header .dropdown-item:hover {
+  background: #f3f4f6;
+}
+
+/* Botones de usuario en header */
+.app-header .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+  background-color: rgba(73, 55, 9, 0.468);
+}
+.app-header .btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #fff;
+}
+.app-header .btn-warning {
+  border: none;
+}
+
+/* Toggler (hamburger) en header oscuro */
+.app-header .navbar-toggler {
+  border-color: rgba(255,255,255,0.35);
+}
+.app-header .navbar-toggler-icon {
+  /* ícono blanco */
+  filter: invert(1) grayscale(100%);
+}
+
+/* ====== FIN HEADER THEME ====== */
