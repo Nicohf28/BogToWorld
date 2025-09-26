@@ -5,10 +5,10 @@
   /* background: #0a3d62; */
 
   /* O un degradado bonito: */
-  background: linear-gradient(135deg, #dc3535 0%, #cfc95d 100%);
+  background: (232, 232, 232);
 
   color: #fff;
-  padding: 0.25rem 0.5rem;
+  padding: 0.005rem 0.005rem;
 }
 
 /* Ajustes de la navbar dentro del header */
@@ -20,18 +20,18 @@
 /* Marca y título */
 .app-header .navbar-brand,
 .app-header .brand-title {
-  color: #fff !important;
-  font-weight: 600;
+  color: #4c360a !important;
+  font-size: 1.5rem;
 }
 
 /* Enlaces de navegación */
 .app-header .nav-link {
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: rgba(0, 0, 0, 0.85) !important;
 }
 .app-header .nav-link:hover,
 .app-header .nav-link:focus,
 .app-header .nav-link.active {
-  color: #fff !important;
+  color: #4c360a !important;
 }
 
 /* Dropdown dentro del header */
@@ -52,11 +52,11 @@
 .app-header .btn-outline-light {
   border-color: rgba(255, 255, 255, 0.7);
   color: #ffffff;
-  background-color: rgba(73, 55, 9, 0.468);
+  background-color: #4c360a;
 }
 .app-header .btn-outline-light:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #fff;
+  background: #c09236;
+  border-color: #c09236;
 }
 .app-header .btn-warning {
   border: none;
@@ -71,4 +71,182 @@
   filter: invert(1) grayscale(100%);
 }
 
+/* Contenedor visible (una sola fuente de padding en los bordes) */
+.category-rail {
+  --cols: 7;         /* cuántas tarjetas visibles sin scroll en desktop */
+  --gap: 16px;
+  --accent: #4c360a;
+
+  -ms-overflow-style: none;   /* IE/Edge legado */
+  scrollbar-width: none;      /* Firefox */
+  overscroll-behavior-x: contain; /* evita rebote lateral en móviles */
+
+  padding-block: .5rem;
+  padding-inline: 12px;          /* borde izquierdo/derecho */
+  scroll-padding-inline: 12px;   /* alinea el primer/último snap con el padding */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Track en grid horizontal, todas igual de anchas */
+.category-track {
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--gap);
+  /* (ancho total - gaps) / columnas visibles  ==> igual ancho por tarjeta */
+  grid-auto-columns: calc((100% - (var(--gap) * (var(--cols) - 1))) / var(--cols));
+}
+
+/* Cada tarjeta encaja en el snap y NO aporta márgenes extra */
+.category-card {
+  scroll-snap-align: start;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* El enlace interno tampoco mete márgenes horizontales extras */
+.category-card > a {
+  display: inline-flex;                /* ya lo tienes por clase */
+  margin: 0 !important;
+  padding: 0.25rem 0 !important;       /* si quieres área clicable vertical */
+  width: 100%;                         /* ocupa todo el ancho de su columna */
+  box-sizing: border-box;
+}
+
+/* Responsivo: ajusta cuántas se ven sin scroll */
+@media (max-width: 576px) { .category-rail { --cols: 3; } }
+@media (min-width: 577px) and (max-width: 991px) { .category-rail { --cols: 5; } }
+@media (min-width: 992px) { .category-rail { --cols: 7; } }
+
+/* --- Estados base --- */
+.category-card > a {
+  width: 100%;
+  padding: .4rem 0;
+  border-radius: .75rem;
+  transition: color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
+  color: var(--bs-body-color);
+}
+
+/* icono */
+.category-card .icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color 140ms ease, color 140ms ease, transform 140ms ease;
+  color: currentColor; /* el SVG hereda de aquí */
+}
+.category-card svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* --- Hover: solo cambia color del texto/ícono (no círculo aún) --- */
+.category-card > a:hover,
+.category-card > a:focus-visible {
+  color: var(--accent);
+}
+
+/* --- Activo/seleccionado: círculo sólido + texto destacado + subrayado --- */
+.category-card > a.is-active .icon-wrap {
+  background-color: var(--accent);
+  color: #fff;           /* icono en blanco sobre círculo primario */
+}
+.category-card > a.is-active .label {
+  color: var(--accent);
+  font-weight: 600;
+  position: relative;
+}
+.category-card > a.is-active .label::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -6px;
+  width: 32px;           /* ajusta al gusto */
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* Accesibilidad */
+.category-card > a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 .2rem color-mix(in oklab, var(--accent) 25%, transparent);
+}
+
+/* Modo oscuro (si usas data-bs-theme="dark") */
+[data-bs-theme="dark"] .category-card > a:hover,
+[data-bs-theme="dark"] .category-card > a:focus-visible {
+  color: var(--accent);
+}
+[data-bs-theme="dark"] .category-card > a.is-active .icon-wrap {
+  background-color: var(--accent);
+  color: #fff;
+}
+
 /* ====== FIN HEADER THEME ====== */
+
+/* Migas de pan*/
+/* Cambiar color de texto (y divisor) de las migas */
+.breadcrumb {
+  --bs-breadcrumb-item-active-color: #6c4d0d;  /* color del último item */
+  --bs-breadcrumb-divider-color: #4c360a;      /* color de la barra "/" */
+}
+/* Fin migas de pan*/
+
+/* Footer */
+
+.app-footer .link-body-emphasis:hover {
+  text-decoration: underline;
+}
+
+.app-footer .alert {
+  background: var(--bs-body-bg);
+}
+
+.app-footer .bi {
+  vertical-align: -2px;
+}
+
+/* color acento opcional para botones/links del footer */
+.app-footer {
+  --accent: #4c360a;
+}
+.app-footer .btn,
+.app-footer .link-body-emphasis:hover {
+  color: var(--accent);
+}
+
+/* FIN footer*/
+
+/*Paginado*/
+/* Tema del paginado BogToWorld */
+.btw-pagination {
+  --btw-accent: #4c360a;
+
+  /* Bootstrap v5 vars */
+  --bs-pagination-color: var(--btw-accent);
+  --bs-pagination-hover-color: var(--btw-accent);
+  --bs-pagination-focus-color: var(--btw-accent);
+  --bs-pagination-active-bg: var(--btw-accent);
+  --bs-pagination-active-border-color: var(--btw-accent);
+  --bs-pagination-border-color: color-mix(in oklab, var(--btw-accent) 25%, transparent);
+  --bs-pagination-hover-bg: color-mix(in oklab, var(--btw-accent) 12%, transparent);
+  --bs-pagination-focus-box-shadow: 0 0 0 .2rem color-mix(in oklab, var(--btw-accent) 25%, transparent);
+  --bs-pagination-disabled-color: color-mix(in oklab, var(--btw-accent) 50%, #bbb);
+}
+
+/* Opcional: bordes más suaves */
+.btw-pagination .page-link {
+  border-radius: .5rem;
+}
+
+/*Fin paginado*/

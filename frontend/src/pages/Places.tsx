@@ -208,7 +208,7 @@ export default function Places() {
 
       {/* Paginado */}
       <nav className="mt-3">
-        <ul className="pagination">
+        <ul className="pagination btw-pagination">
           <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
             <button className="page-link" onClick={() => goToPage(Math.max(1, page - 1))}>
               Anterior
