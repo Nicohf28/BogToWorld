@@ -1,5 +1,5 @@
 // frontend/src/components/cards/PlaceCardFactory.tsx
-import React from "react";
+import React, { useState } from "react";
 
 // Importa las variantes de Card por categoría (créalas en ./types/)
 import RestaurantCard from "./types/RestaurantCard";
@@ -16,6 +16,7 @@ import MuseumCard from "./types/MuseumCard";
 import DefaultCard from "./types/DefaultCard";
 
 import type { Place } from "../../types";
+import { useAuth } from "../../context/useAuth";  // Para saber si el usuario está logueado
 
 /**
  * Mapeo de categoría → componente de Card
@@ -38,10 +39,40 @@ const CARD_BY_CATEGORY: Record<string, React.ComponentType<{ place: Place }>> = 
 };
 
 /**
- * Factory que devuelve la Card adecuada según la categoría del lugar.
+ * Componente que devuelve la Card adecuada según la categoría del lugar.
  * Si la categoría no existe en el mapeo, usa DefaultCard.
  */
-export default function createPlaceCard(place: Place) {
+const PlaceCard: React.FC<{ place: Place }> = ({ place }) => {
+  const { isAuth } = useAuth();  // Chequear si el usuario está logueado
+  const [isFavorite, setIsFavorite] = useState(false);  // Estado del corazón (favorito o no)
+
+  // Función para manejar el click del corazón
+  const handleFavoriteClick = () => {
+    setIsFavorite(prevState => !prevState);  // Cambiar estado al hacer click
+  };
+
   const Comp = CARD_BY_CATEGORY[place.category] ?? DefaultCard;
-  return <Comp key={place.id} place={place} />;
+  
+  return (
+    <div className="card">
+      <Comp key={place.id} place={place} />
+
+      <div className="card-body">
+
+        {/* Aquí agregamos el botón de corazón condicionalmente */}
+        {isAuth && (
+          <div className="favorite-container">
+            <button 
+              className={`btn btn-outline-danger ${isFavorite ? 'filled' : ''}`} 
+              onClick={handleFavoriteClick}
+            >
+              {isFavorite ? '❤️' : '🤍'} {/* Corazón relleno si favorito, vacío si no */}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
+
+export default PlaceCard;

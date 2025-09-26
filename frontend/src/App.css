@@ -250,3 +250,37 @@
 }
 
 /*Fin paginado*/
+
+/*====== inicio corazon favoritos ====== */
+.card {
+  position: relative;
+  border: none;
+}
+
+.card-body {
+  position: relative;
+  padding: 1.25rem;
+}
+
+.favorite-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.card .btn-outline-danger {
+  font-size: 1.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.card .btn-outline-danger.filled {
+  color: red; /* Corazón relleno */
+}
+
+.card .btn-outline-danger:hover {
+  color: darkred; /* Hover para mayor interactividad */
+}
+/*====== Fin corazon favoritos ====== */

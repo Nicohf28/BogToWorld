@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchPlaces } from "../services/api";
 import type { Place, Category } from "../types";
-import createPlaceCard from "../components/cards/PlaceCardFactory";
+import PlaceCard from "../components/cards/PlaceCardFactory";  // Ahora importamos PlaceCard como componente
 
 type PlacesQuery = {
   page: number;
@@ -199,9 +199,9 @@ export default function Places() {
 
       {/* Grid de Cards */}
       <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3">
-        {data.map((p) => (
-          <div className="col" key={p.id}>
-            {createPlaceCard(p)}
+        {data.map((place) => (
+          <div className="col" key={place.id}>
+            <PlaceCard place={place} />  {/* Ahora usamos el componente PlaceCard */}
           </div>
         ))}
       </div>
