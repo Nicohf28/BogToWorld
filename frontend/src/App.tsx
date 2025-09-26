@@ -4,6 +4,7 @@ import Places from "./pages/Places";
 import Login from "./pages/Login";
 import Register from "./pages/register";
 import Reviews from "./pages/Reviews";
+import FavoritesPage from "./pages/Favorites";
 import { useAuth } from "./context/useAuth";
 import "./App.css";
 
@@ -422,6 +423,16 @@ export default function App() {
                   </Link>
                 </li>
 
+                {/* Nueva sección para Favoritos */}
+                <li className="nav-item">
+                  <Link className="nav-link d-flex align-items-center gap-2" to="/favorites">
+                    <span role="img" aria-label="corazón" style={{ fontSize: "1.5rem" }}>
+                      ❤️
+                    </span>
+                    <span>Favoritos</span>
+                  </Link>
+                </li>
+
                 <li className="nav-item d-flex align-items-center gap-2">
                   <img
                     src="/ver-mas.png"
@@ -455,9 +466,11 @@ export default function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/favorites" element={<FavoritesPage />} /> {/* Ruta para Favoritos */}
       </Routes>
 
       <Footer />
     </div>
   );
 }
+
