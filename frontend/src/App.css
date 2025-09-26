@@ -254,7 +254,7 @@
 /*====== inicio corazon favoritos ====== */
 .card {
   position: relative;
-  border: none;
+  border:none;
 }
 
 .card-body {

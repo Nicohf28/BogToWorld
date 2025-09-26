@@ -6,6 +6,7 @@ import Register from "./pages/register";
 import Reviews from "./pages/Reviews";
 import { useAuth } from "./context/useAuth";
 import "./App.css";
+import Favorites from "./pages/Favorites";  // Importa la nueva página de favoritos
 
 // Asegúrate de tener importado Link en la parte superior del archivo:
 // import { Link } from "react-router-dom";
@@ -361,6 +362,8 @@ function Footer() {
 }
 
 export default function App() {
+  const { isAuth } = useAuth();
+
   return (
     <div className="container">
       {/* ====== HEADER COMPLETO ====== */}
@@ -433,6 +436,23 @@ export default function App() {
                   />
                   <SiteMapMenu />
                 </li>
+
+                <li className="nav-item d-flex align-items-center gap-2">
+                  <img
+                    src="/ver-mas.png"
+                    alt="icono ver más"
+                    width={40}
+                    height={40}
+                    className="d-inline-block align-middle"
+                    style={{ objectFit: "contain" }}
+                  />
+                  {/* Solo mostrar "Mis Favoritos" si el usuario está logueado */}
+                  {isAuth && (
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/favorites">Mis Favoritos</Link>
+                    </li>
+                  )}
+                </li>
               </ul>
 
               {/* Empuja el menú de usuario a la derecha */}
@@ -455,6 +475,7 @@ export default function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
 
       <Footer />
