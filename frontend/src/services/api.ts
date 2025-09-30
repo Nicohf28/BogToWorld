@@ -102,3 +102,18 @@ export async function fetchReviews(page = 1, pageSize = 10): Promise<ReviewsResp
   const res = await api.get<ReviewsResponse>("/reviews", { params: { page, pageSize } });
   return res.data;
 }
+
+export async function addFavorite(placeId: number) {
+  const res = await api.post("/favorites", { placeId });
+  return res.data;
+}
+
+export async function removeFavorite(placeId: number) {
+  const res = await api.delete("/favorites", { data: { placeId } });
+  return res.data;
+}
+
+export async function getFavorites() {
+  const res = await api.get("/favorites");
+  return res.data.data as Place[];
+}

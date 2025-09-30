@@ -1,5 +1,6 @@
 // frontend/src/components/cards/PlaceCardFactory.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { addFavorite, removeFavorite, getFavorites } from "../../services/api";
 
 // Importa las variantes de Card por categoría (créalas en ./types/)
 import RestaurantCard from "./types/RestaurantCard";
@@ -46,9 +47,25 @@ const PlaceCard: React.FC<{ place: Place }> = ({ place }) => {
   const { isAuth } = useAuth();  // Chequear si el usuario está logueado
   const [isFavorite, setIsFavorite] = useState(false);  // Estado del corazón (favorito o no)
 
-  // Función para manejar el click del corazón
-  const handleFavoriteClick = () => {
-    setIsFavorite(prevState => !prevState);  // Cambiar estado al hacer click
+  // Al montar, verificamos si el lugar ya es favorito
+  useEffect(() => {
+    if (isAuth) {
+      getFavorites().then(favs => {
+        const favorited = favs.some(f => f.id === place.id);
+        setIsFavorite(favorited);
+      });
+    }
+  }, [isAuth, place.id]);
+
+  const handleFavoriteClick = async () => {
+    if (!isAuth) return;
+    if (isFavorite) {
+      await removeFavorite(place.id);
+      setIsFavorite(false);
+    } else {
+      await addFavorite(place.id);
+      setIsFavorite(true);
+    }
   };
 
   const Comp = CARD_BY_CATEGORY[place.category] ?? DefaultCard;

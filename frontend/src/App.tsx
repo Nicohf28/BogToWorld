@@ -438,19 +438,21 @@ export default function App() {
                 </li>
 
                 <li className="nav-item d-flex align-items-center gap-2">
-                  <img
-                    src="/ver-mas.png"
-                    alt="icono ver más"
-                    width={40}
-                    height={40}
-                    className="d-inline-block align-middle"
-                    style={{ objectFit: "contain" }}
-                  />
-                  {/* Solo mostrar "Mis Favoritos" si el usuario está logueado */}
                   {isAuth && (
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/favorites">Mis Favoritos</Link>
-                    </li>
+                    <>
+                      <img
+                        src="/ver-mas.png"
+                        alt="icono ver más"
+                        width={40}
+                        height={40}
+                        className="d-inline-block align-middle"
+                        style={{ objectFit: "contain" }}
+                      />
+
+                      <Link className="nav-link" to="/favorites">
+                        Mis Favoritos
+                      </Link>
+                    </>
                   )}
                 </li>
               </ul>

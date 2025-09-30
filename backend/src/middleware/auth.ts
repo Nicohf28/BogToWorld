@@ -14,3 +14,16 @@ export function auth(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ error: "Invalid token" });
   }
 }
+
+export function authMiddleware(req: Request, res: Response, next: NextFunction) {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "No token" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: number, email: string };
+    req.user = { id: decoded.id, email: decoded.email }; // <- asignación correcta
+    next();
+  } catch (err) {
+    res.status(401).json({ error: "Token inválido" });
+  }
+}

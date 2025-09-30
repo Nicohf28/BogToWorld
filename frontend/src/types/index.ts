@@ -1,5 +1,6 @@
 // frontend/src/types/index.ts
 
+
 // Debe coincidir EXACTAMENTE con las categorías del backend/DB (ENUM)
 export type Category =
   | "Restaurantes"
