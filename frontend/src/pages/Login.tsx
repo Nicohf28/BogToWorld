@@ -3,8 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { api } from "../services/api";
 import { isAxiosError } from "axios";
 import { useAuth } from "../context/useAuth";
-
-import "./Login.css";
+import "./login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -36,33 +35,35 @@ export default function Login() {
   }
 
   return (
-    <div className="my-4 col-12 col-md-6">
-      <h3>Inicio de Sesión</h3>
-      {err && <div className="alert alert-danger">{err}</div>}
-      <form onSubmit={onSubmit}>
-        <div className="mb-2">
-          <label className="form-label">Correo Electrónico</label>
-          <input
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-          />
-        </div>
-        <div className="mb-2">
-          <label className="form-label">Contraseña</label>
-          <input
-            type="password"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-          />
-        </div>
-        <button className="btn btn-primary" disabled={loading}>
-          {loading ? "Ingresando..." : "Entrar"}
-        </button>
-      </form>
+    <div className="login-container-wrapper">
+      <div className="login-container">
+        <h3>Inicio de Sesión</h3>
+        {err && <div className="alert alert-danger">{err}</div>}
+        <form onSubmit={onSubmit}>
+          <div className="mb-2">
+            <label className="form-label">Correo Electrónico</label>
+            <input
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+            />
+          </div>
+          <button className="btn btn-loading" disabled={loading}>
+            {loading ? "Ingresando..." : "Entrar"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

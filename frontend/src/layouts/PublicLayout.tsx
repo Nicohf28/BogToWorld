@@ -5,9 +5,13 @@ export default function PublicLayout() {
   return (
     <div className="container my-5">
       {/* Botón de regreso al home */}
-      <div className="mb-4">
-        <Link to="/" className="btn btn-outline-primary">&larr; Volver al inicio</Link>
-      </div>
+      <Link 
+        to="/" 
+        className="btn"
+        style={{ backgroundColor: "#4c360a", color: "#fff", border: "none" }}
+      >
+        &larr; Volver al Inicio
+      </Link>
 
       {/* Aquí se renderizará el contenido de la página */}
       <Outlet />

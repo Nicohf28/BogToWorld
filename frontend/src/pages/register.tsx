@@ -1,8 +1,9 @@
-// frontend/src/pages/Register.tsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../services/api";
 import { isAxiosError } from "axios";
+
+import "./Login.css"; // usa las mismas clases que Login
 
 type FormState = {
   name: string;
@@ -65,91 +66,89 @@ export default function Register() {
   }
 
   return (
-    <div className="container my-4">
-      <div className="row justify-content-center">
-        <div className="col-12 col-md-6">
-          <h3 className="mb-3">Crear cuenta</h3>
+    <div className="login-container-wrapper">
+      <div className="login-container">
+        <h3 className="mb-3">Crear cuenta</h3>
 
-          {error && <div className="alert alert-danger">{error}</div>}
-          {okMsg && <div className="alert alert-success">{okMsg}</div>}
+        {error && <div className="alert alert-danger">{error}</div>}
+        {okMsg && <div className="alert alert-success">{okMsg}</div>}
 
-          <form onSubmit={onSubmit} noValidate>
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">Nombre completo</label>
-              <input
-                id="name"
-                name="name"
-                className="form-control"
-                value={form.name}
-                onChange={onChange}
-                disabled={loading}
-                required
-                placeholder="Tu nombre"
-              />
+        <form onSubmit={onSubmit} noValidate>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">Nombre completo</label>
+            <input
+              id="name"
+              name="name"
+              className="form-control"
+              value={form.name}
+              onChange={onChange}
+              disabled={loading}
+              required
+              placeholder="Tu nombre"
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Correo Electrónico</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="form-control"
+              value={form.email}
+              onChange={onChange}
+              disabled={loading}
+              required
+              placeholder="tucorreo@ejemplo.com"
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Contraseña</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="form-control"
+              value={form.password}
+              onChange={onChange}
+              disabled={loading}
+              required
+              minLength={6}
+              placeholder="Mínimo 6 caracteres"
+            />
+            <div className="form-text">
+              Usa una contraseña segura (mezcla mayúsculas, minúsculas, números y símbolos).
             </div>
+          </div>
 
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">Correo Electrónico</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                className="form-control"
-                value={form.email}
-                onChange={onChange}
-                disabled={loading}
-                required
-                placeholder="tucorreo@ejemplo.com"
-              />
-            </div>
+          <div className="mb-3">
+            <label htmlFor="confirm" className="form-label">Confirmar contraseña</label>
+            <input
+              id="confirm"
+              name="confirm"
+              type="password"
+              className="form-control"
+              value={form.confirm}
+              onChange={onChange}
+              disabled={loading}
+              required
+            />
+          </div>
 
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">Contraseña</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                className="form-control"
-                value={form.password}
-                onChange={onChange}
-                disabled={loading}
-                required
-                minLength={6}
-                placeholder="Mínimo 6 caracteres"
-              />
-              <div className="form-text">
-                Usa una contraseña segura (mezcla mayúsculas, minúsculas, números y símbolos).
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="confirm" className="form-label">Confirmar contraseña</label>
-              <input
-                id="confirm"
-                name="confirm"
-                type="password"
-                className="form-control"
-                value={form.confirm}
-                onChange={onChange}
-                disabled={loading}
-                required
-              />
-            </div>
-
-            <div className="d-flex align-items-center gap-2">
-              <button
-                className="btn btn-primary"
-                type="submit"
-                disabled={loading}
-              >
-                {loading ? "Creando..." : "Crear cuenta"}
-              </button>
-              <Link to="/login" className="btn btn-outline-secondary">
-                Ya tengo cuenta
-              </Link>
-            </div>
-          </form>
-        </div>
+          <div className="d-flex gap-2">
+            <button
+              className="btn btn-loading flex-fill"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Creando..." : "Crear cuenta"}
+            </button>
+            <Link to="/login" className="btn btn-outline-secondary flex-fill">
+              Ya tengo cuenta
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );
