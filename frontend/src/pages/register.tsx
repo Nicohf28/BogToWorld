@@ -89,7 +89,7 @@ export default function Register() {
             </div>
 
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">Email</label>
+              <label htmlFor="email" className="form-label">Correo Electrónico</label>
               <input
                 id="email"
                 name="email"

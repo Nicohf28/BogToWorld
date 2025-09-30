@@ -4,6 +4,8 @@ import { api } from "../services/api";
 import { isAxiosError } from "axios";
 import { useAuth } from "../context/useAuth";
 
+import "./Login.css";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,11 +37,11 @@ export default function Login() {
 
   return (
     <div className="my-4 col-12 col-md-6">
-      <h3>Login</h3>
+      <h3>Inicio de Sesión</h3>
       {err && <div className="alert alert-danger">{err}</div>}
       <form onSubmit={onSubmit}>
         <div className="mb-2">
-          <label className="form-label">Email</label>
+          <label className="form-label">Correo Electrónico</label>
           <input
             className="form-control"
             value={email}
