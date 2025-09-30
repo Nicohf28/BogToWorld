@@ -4,9 +4,18 @@ import Places from "./pages/Places";
 import Login from "./pages/Login";
 import Register from "./pages/register";
 import Reviews from "./pages/Reviews";
+import Favorites from "./pages/Favorites";  // Importa la nueva página de favoritos
+import Ajustes from "./pages/footer_pages/Ajustes";
+import ComoFunciona from "./pages/footer_pages/ComoFunciona";
+import FAQ from "./pages/footer_pages/FAQ";
+import Soporte from "./pages/footer_pages/Soporte";
+import Reportar from "./pages/footer_pages/Reportar";
+import Terminos from "./pages/footer_pages/Terminos";
+import Privacidad from "./pages/footer_pages/Privacidad";
+import Cookies from "./pages/footer_pages/Cookies";
+
 import { useAuth } from "./context/useAuth";
 import "./App.css";
-import Favorites from "./pages/Favorites";  // Importa la nueva página de favoritos
 
 // Asegúrate de tener importado Link en la parte superior del archivo:
 // import { Link } from "react-router-dom";
@@ -478,6 +487,14 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/settings" element={<Ajustes />} />
+        <Route path="/ayuda/como-funciona" element={<ComoFunciona />} />
+        <Route path="/ayuda/faq" element={<FAQ />} />
+        <Route path="/soporte" element={<Soporte />} />
+        <Route path="/reportar" element={<Reportar />} />
+        <Route path="/terminos" element={<Terminos />} />
+        <Route path="/privacidad" element={<Privacidad />} />
+        <Route path="/cookies" element={<Cookies />} />
       </Routes>
 
       <Footer />
