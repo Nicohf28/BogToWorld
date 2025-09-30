@@ -1,6 +1,8 @@
+
 import "./Home.css";
 import Places from "./Places";
 import { useNavigate, Routes, Route } from "react-router-dom";
+import MapView from "./MapPlaces";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -9,41 +11,54 @@ export default function Home() {
     <div className="home-container">
       {/* Encabezado principal */}
       <header className="home-header">
-        <div>
-          <h1>BogToWorld</h1>
-          <p>Explora sitios de interés en Bogotá.</p>
+        <div className="header-container">
+          <div className="header-text">
+            <h1>BogToWorld</h1>
+            <p>
+              Descubre Bogotá como nunca antes: desde rincones culturales y parques vibrantes hasta experiencias únicas que harán de tu visita un recuerdo inolvidable.
+            </p>
+          </div>
         </div>
       </header>
 
-      {/* Sección de buscador */}
-      <section className="search-box">
-        <input type="text" placeholder="¿Qué lugar buscas?" />
-        <select>
-          <option>Parques de Diversiones</option>
-          <option>Parques Naturales</option>
-          <option>Restaurantes</option>
-        </select>
-        <input type="date" />
-        <button>Buscar</button>
-      </section>
-
-      {/* Promociones destacadas */}
-      <section className="promos">
-        <div className="promo-card promo-blue">
-          <h3>Descuento 30%</h3>
-          <p>En parques y actividades seleccionadas.</p>
-        </div>
-        <div className="promo-card promo-green">
-          <h3>Paquetes familiares</h3>
-          <p>Multiparque + Almuerzo incluido.</p>
-        </div>
-        <div className="promo-card promo-red">
-          <h3>Nuevas experiencias</h3>
-          <p>Descubre actividades recientes en Bogotá.</p>
+      
+      {/* Sección del mapa */}
+      <section className="map-section">
+        <h2>Sitios que puedes Visitar</h2>
+        <div className="map-wrapper">
+          <MapView />
         </div>
       </section>
 
-      {/* Lugares sugeridos */}
+      {/* Servicios que ofrecemos */}
+      <section className="services">
+        <h2>Servicios que ofrecemos</h2>
+        <div className="services-grid">
+          <div className="service-card">
+            <img src="../../public/services/descuento.jpg" alt="Descuento 30%" />
+            <div className="p-4">
+              <h3>Descuento 30%</h3>
+              <p>En parques y actividades seleccionadas para que disfrutes más por menos.</p>
+            </div>
+          </div>
+          <div className="service-card">
+            <img src="../../public/services/paquetes.jpg" alt="Paquetes familiares" />
+            <div className="p-4">
+              <h3>Paquetes familiares</h3>
+              <p>Combina diversión y comodidad con nuestras ofertas especiales para familias.</p>
+            </div>
+          </div>
+          <div className="service-card">
+            <img src="../../public/services/nuevas-experiencias.jpg" alt="Nuevas experiencias" />
+            <div className="p-4">
+              <h3>Nuevas experiencias</h3>
+              <p>Descubre actividades recientes y exclusivas que harán tu visita inolvidable.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Lugares recomendados */}
       <section className="places">
         <h2>Lugares recomendados</h2>
         <div className="places-grid">

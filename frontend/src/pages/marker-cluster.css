@@ -1,0 +1,67 @@
+
+/* marker-cluster.css */
+
+/* Estilos base para los clusters */
+.leaflet-marker-icon {
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+/* Clusters pequeños */
+.marker-cluster-small {
+  background-color: rgba(0, 123, 255, 0.6);
+  color: white;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+/* Clusters medianos */
+.marker-cluster-medium {
+  background-color: rgba(0, 123, 255, 0.8);
+  color: white;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+/* Clusters grandes */
+.marker-cluster-large {
+  background-color: rgba(0, 123, 255, 1);
+  color: white;
+  font-size: 16px;
+  line-height: 28px;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+/* Estilos para los clusters al hacer hover */
+.marker-cluster-small:hover,
+.marker-cluster-medium:hover,
+.marker-cluster-large:hover {
+  background-color: rgba(0, 123, 255, 1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Estilos para los clusters al hacer clic */
+.marker-cluster-small:active,
+.marker-cluster-medium:active,
+.marker-cluster-large:active {
+  background-color: rgba(0, 123, 255, 0.9);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+}

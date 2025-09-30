@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth";
 import placesRoutes from "./routes/places";
 import reviewsRoutes from "./routes/reviews"; 
 import favoritesRouter from "./routes/favorites";
+import mapRouter from "./routes/map";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/places", placesRoutes);
 app.use("/api/reviews", reviewsRoutes);
 app.use("/api/favorites", favoritesRouter);        
+app.use("/api/map-places", mapRouter);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`API en http://localhost:${port}`));
