@@ -1,0 +1,158 @@
+/* === Colores base adaptados al estilo BogToWorld === */
+:root {
+  --primary: #5a3e1b;   /* Marrón tierra */
+  --secondary: #d4a017; /* Dorado */
+  --light-bg: #f9f7f3;  /* Fondo claro */
+  --text-dark: #2b2b2b;
+  --text-light: #ffffff;
+}
+
+/* === Contenedor general === */
+.home-container {
+  background-color: var(--light-bg);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-dark);
+}
+
+/* === Header estilo Despegar pero con colores de BogToWorld === */
+.home-header {
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  color: var(--text-light);
+  padding: 3rem 2rem;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin-top: 1.0rem;
+}
+.home-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.home-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* === Sección de buscador === */
+.search-box {
+  background: var(--text-light);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 2rem;
+  margin: -2rem auto 2rem;
+  max-width: 1100px;
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 1rem;
+}
+.search-box input,
+.search-box select {
+  border: 1px solid #ddd;
+  border-radius: 0.75rem;
+  padding: 0.8rem;
+  font-size: 0.95rem;
+}
+.search-box button {
+  background: var(--primary);
+  color: var(--text-light);
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.8rem;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+.search-box button:hover {
+  background: var(--secondary);
+}
+
+/* === Promociones destacadas === */
+.promos {
+  max-width: 1100px;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 1.5rem;
+}
+.promo-card {
+  border-radius: 1.5rem;
+  padding: 2rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.promo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+.promo-blue { background: #e1ecf7; }
+.promo-green { background: #e5f7e1; }
+.promo-red { background: #fce1e1; }
+
+/* === Cards de Lugares recomendados === */
+.places {
+  max-width: 1100px;
+  margin: 3rem auto;
+}
+.places h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 1.5rem;
+}
+.place-card {
+  background: var(--text-light);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.place-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.place-card:hover img {
+  transform: scale(1.05);
+}
+.place-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.place-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.place-card p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* === Botón de ver más === */
+.btn-more {
+  display: inline-block;
+  background: transparent;   /* Fondo transparente */
+  color: #4c360a;            /* Texto con el color base */
+  border: 2px solid #4c360a; /* Borde con el mismo color */
+  padding: 0.9rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.btn-more:hover {
+  background: #ae935c6b;  /* Al pasar el mouse se llena */       /* Texto en blanco cuando se llena */
+  transform: scale(1.05);
+}

@@ -117,3 +117,8 @@ export async function getFavorites() {
   const res = await api.get("/favorites");
   return res.data.data as Place[];
 }
+
+export async function fetchPlacesMap() {
+  const res = await api.get("/places"); // sin paginación para el mapa
+  return res.data.data; // devuelve array de Place[]
+}
