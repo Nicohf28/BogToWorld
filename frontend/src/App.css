@@ -284,3 +284,7 @@
   color: darkred; /* Hover para mayor interactividad */
 }
 /*====== Fin corazon favoritos ====== */
+
+.service-card img {
+  cursor: pointer;
+}

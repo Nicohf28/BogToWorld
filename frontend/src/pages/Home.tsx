@@ -3,9 +3,17 @@ import "./Home.css";
 import Places from "./Places";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import MapView from "./MapPlaces";
+import { useAuth } from "../context/useAuth";
+import { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 
 export default function Home() {
   const navigate = useNavigate();
+  const { isAuth } = useAuth();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => setShowModal(false);
+  const handleOpen = () => setShowModal(true);
 
   return (
     <div className="home-container">
@@ -34,57 +42,83 @@ export default function Home() {
       <section className="services">
         <h2>Servicios que ofrecemos</h2>
         <div className="services-grid">
-          <div className="service-card">
-            <img src="../../public/services/descuento.jpg" alt="Descuento 30%" />
-            <div className="p-4">
-              <h3>Descuento 30%</h3>
-              <p>En parques y actividades seleccionadas para que disfrutes más por menos.</p>
-            </div>
+          <div
+            className="service-card p-0"
+            onClick={() => {
+              if (isAuth) {
+                navigate("/favorites");
+              } else {
+                handleOpen(); // muestra modal
+              }
+            }}
+          >
+            <img
+              src="/2favoritos.png"
+              alt="Publicidad Favoritos"
+              className="w-full h-auto object-contain"
+            />
           </div>
-          <div className="service-card">
-            <img src="../../public/services/paquetes.jpg" alt="Paquetes familiares" />
-            <div className="p-4">
-              <h3>Paquetes familiares</h3>
-              <p>Combina diversión y comodidad con nuestras ofertas especiales para familias.</p>
-            </div>
+          <div className="service-card p-0" onClick={() => navigate("/places")}>
+            <img
+              src="/1mapa.png"
+              alt="Publicidad Lugares Nuevos"
+              className="w-full h-auto object-contain"
+            />
           </div>
-          <div className="service-card">
-            <img src="../../public/services/nuevas-experiencias.jpg" alt="Nuevas experiencias" />
-            <div className="p-4">
-              <h3>Nuevas experiencias</h3>
-              <p>Descubre actividades recientes y exclusivas que harán tu visita inolvidable.</p>
-            </div>
+          <div className="service-card p-0" onClick={() => navigate("/reviews")}>
+            <img
+              src="/1reseñas.png"
+              alt="Publicidad Reseñas"
+              className="w-full h-auto object-contain"
+            />
           </div>
         </div>
       </section>
+
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Antes de comenzar!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Debes iniciar sesión para acceder a tus favoritos.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleClose}>
+            Cerrar
+          </Button>
+          <Button variant="success" onClick={() => { setShowModal(false); navigate("/login"); }}>
+            Iniciar sesión
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       {/* Lugares recomendados */}
       <section className="places">
         <h2>Lugares recomendados</h2>
         <div className="places-grid">
           <div className="place-card">
-            <img src="../../public/recomended_places/multiparque.jpg" alt="Multiparque" />
+            <img src="/recomended_places/multiparque.jpg" alt="Multiparque" />
             <div className="p-4">
               <h3>Multiparque</h3>
               <p>Diversión al aire libre</p>
             </div>
           </div>
           <div className="place-card">
-            <img src="../../public/recomended_places/mundo-aventura.jpg" alt="Mundo Aventura" />
+            <img src="/recomended_places/mundo-aventura.jpg" alt="Mundo Aventura" />
             <div className="p-4">
               <h3>Mundo Aventura</h3>
               <p>Atracciones y espectáculos</p>
             </div>
           </div>
           <div className="place-card">
-            <img src="../../public/recomended_places/salitre-magico.jpg" alt="Salitre Mágico" />
+            <img src="/recomended_places/salitre-magico.jpg" alt="Salitre Mágico" />
             <div className="p-4">
               <h3>Salitre Mágico</h3>
               <p>Montañas rusas y adrenalina</p>
             </div>
           </div>
           <div className="place-card">
-            <img src="../../public/recomended_places/monserrate.jpg" alt="Monserrate" />
+            <img src="/recomended_places/monserrate.jpg" alt="Monserrate" />
             <div className="p-4">
               <h3>Monserrate</h3>
               <p>Turismo cultural y vistas</p>
