@@ -110,3 +110,38 @@ UPDATE places SET image_url = 'http://localhost:4000/static/places/santuario-mon
 UPDATE places SET image_url = 'http://localhost:4000/static/places/museo-del-oro.jpg' WHERE name = 'Museo del Oro';
 UPDATE places SET image_url = 'http://localhost:4000/static/places/museo-botero.jpg' WHERE name = 'Museo Botero';
 UPDATE places SET image_url = 'http://localhost:4000/static/places/museo-nacional.jpg' WHERE name = 'Museo Nacional de Colombia';
+
+-- Seteo de direcciones de los lugares
+UPDATE places SET address='Cl. 82 #12-21, Zona T' WHERE id=1;  -- Andrés DC
+UPDATE places SET address='Cra. 3 #65-28, Chapinero' WHERE id=2;  -- El Chato
+UPDATE places SET address='Cl. 27 #6-75, Centro Internacional' WHERE id=3;  -- Leo
+UPDATE places SET address='Av. Calle 63 y Av. 68, Teusaquillo' WHERE id=4;  -- Parque Simón Bolívar
+UPDATE places SET address='Cra. 7 #36-45, Santa Fe' WHERE id=5;  -- Parque Nacional Enrique Olaya Herrera
+UPDATE places SET address='Cl. 63 #68-95, Engativá' WHERE id=6;  -- Jardín Botánico de Bogotá
+UPDATE places SET address='Cra. 68 #63-63, Barrios Unidos' WHERE id=7;  -- Salitre Mágico
+UPDATE places SET address='Cra. 71D #1-14 Sur, Kennedy' WHERE id=8;  -- Mundo Aventura
+UPDATE places SET address='Autopista Norte #224-60, Suba' WHERE id=9;  -- Multiparque
+UPDATE places SET address='Cl. 26 #62-47, Teusaquillo' WHERE id=10; -- Chuck E. Cheese Bogotá
+UPDATE places SET address='Cra. 15 #124-30, Usaquén' WHERE id=11; -- Playland Unicentro
+UPDATE places SET address='Cra. 71D #1-14 Sur, Kennedy' WHERE id=12; -- Mundo Aventura Kids
+UPDATE places SET address='Cra. 11 #82-71, Zona T' WHERE id=13; -- Centro Comercial Andino
+UPDATE places SET address='Cl. 26 #62-47, Fontibón' WHERE id=14; -- Gran Estación
+UPDATE places SET address='Cra. 15 #124-30, Usaquén' WHERE id=15; -- Unicentro Bogotá
+UPDATE places SET address='Av. Calle 63 #47-06, Teusaquillo' WHERE id=16; -- Complejo Acuático Simón Bolívar
+UPDATE places SET address='Cra. 60 #63-65, Teusaquillo' WHERE id=17; -- Centro de Alto Rendimiento
+UPDATE places SET address='Av. 68 #49A-47, Barrios Unidos' WHERE id=18; -- Compensar Av. 68 Piscinas
+UPDATE places SET address='Cra. 15 #124-30, Usaquén' WHERE id=19; -- Bowling Star Unicentro
+UPDATE places SET address='Cl. 146 #58-39, Suba' WHERE id=20; -- Strike Bowling Parque La Colina
+UPDATE places SET address='Av. 68 #55-65, Barrios Unidos' WHERE id=21; -- Bolera El Salitre
+UPDATE places SET address='Cl. 57 #28-00, Teusaquillo' WHERE id=22; -- Canchas El Campín
+UPDATE places SET address='Av. Calle 63 y Av. 68, Teusaquillo' WHERE id=23; -- Canchas Parque Simón Bolívar
+UPDATE places SET address='Av. 68 #49A-47, Barrios Unidos' WHERE id=24; -- Compensar Canchas de Fútbol
+UPDATE places SET address='Cra. 2 Este #21-48, Santa Fe' WHERE id=25; -- Monserrate
+UPDATE places SET address='Cra. 2 Este #20-00, Santa Fe' WHERE id=26; -- Cerro de Guadalupe
+UPDATE places SET address='Vía La Calera Km 7, La Calera' WHERE id=27; -- Mirador La Calera
+UPDATE places SET address='Cra. 7 #11-10, La Candelaria' WHERE id=28; -- Catedral Primada
+UPDATE places SET address='Cra. 7 #9-70, La Candelaria' WHERE id=29; -- Iglesia de San Francisco
+UPDATE places SET address='Cra. 2 Este #21-48, Santa Fe' WHERE id=30; -- Santuario del Señor Caído de Monserrate
+UPDATE places SET address='Cra. 6 #15-88, La Candelaria' WHERE id=31; -- Museo del Oro
+UPDATE places SET address='Cl. 11 #4-41, La Candelaria' WHERE id=32; -- Museo Botero
+UPDATE places SET address='Cra. 7 #28-66, Santa Fe' WHERE id=33; -- Museo Nacional de Colombia

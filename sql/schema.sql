@@ -4,7 +4,7 @@
 -- 1) Crear BD y seleccionar
 CREATE DATABASE IF NOT EXISTS bogtoworld
   CHARACTER SET utf8mb4
-  COLLATE utf8mb4_general_ci;
+  ;
 
 USE bogtoworld;
 
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 -- 3) Tabla de lugares (sitios de interés)
 --    Incluye bandera is_new para aplicar el patrón Decorator ("NUEVO")
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS places (
   INDEX idx_places_category (category),
   INDEX idx_places_created_at (created_at),
   FULLTEXT KEY ftx_places_name_desc (name, description)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 -- 4) Tabla de reseñas (reviews) de los lugares
 --    Cada reseña pertenece a un lugar y a un usuario
@@ -74,7 +74,15 @@ CREATE TABLE IF NOT EXISTS reviews (
   INDEX idx_reviews_place (place_id),
   INDEX idx_reviews_user (user_id),
   INDEX idx_reviews_created_at (created_at)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  DEFAULT CHARSET=utf8mb4 ;
+
+-- Creación de la tabla de favoritos
+CREATE TABLE IF NOT EXISTS `favorites` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `place_id` int(10) UNSIGNED NOT NULL,
+  `added_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 -- 5) Vista opcional: promedio de calificación por lugar (útil en listados)
 --    Si tu versión de MySQL no soporta CHECK/VISTAS, puedes comentar esta parte.
