@@ -29,6 +29,20 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Sección de video promocional */}
+      <section className="container my-5 map-section">
+        <h2 className="mb-3">¡Conoce BogToWorld!</h2>
+        <div className="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/7LTRfS9kGTQ"
+            title="¡Conoce BogToWorld!"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
+      </section>
       
       {/* Sección del mapa */}
       <section className="map-section">
