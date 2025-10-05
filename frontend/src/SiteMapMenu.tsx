@@ -1,4 +1,3 @@
-
 import "./SiteMapMenu.css";
 import { useState } from "react";
 
@@ -50,7 +49,7 @@ export default function SiteMapMenu({ onClose }: SiteMapMenuProps) {
               <li><a href="/places?category=Miradores">Miradores</a></li>
               <li><a href="/places?category=Iglesias">Iglesias</a></li>
               <li><a href="/places?category=Museos">Museos</a></li>
-              <li><a href="/places?favorites=1">Favoritos</a></li>
+              <li><a href="/favorites">Favoritos</a></li>
             </ul>
           )}
         </li>

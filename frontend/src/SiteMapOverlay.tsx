@@ -1,21 +1,41 @@
 // frontend/src/SiteMapOverlay.tsx
 import "./SiteMapMenu.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // ADD: useNavigate
+import { Modal, Button } from "react-bootstrap";      // ADD: Modal y Button
+import { useAuth } from "./context/useAuth";         // ADD: useAuth
 
 interface SiteMapOverlayProps {
-  show: boolean;       // si el overlay se muestra
-  onClose: () => void; // función para cerrarlo
+  show: boolean;
+  onClose: () => void;
 }
 
 export default function SiteMapOverlay({ show, onClose }: SiteMapOverlayProps) {
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const { isAuth } = useAuth();               // ADD
+  const navigate = useNavigate();             // ADD
+
+  const [showModal, setShowModal] = useState(false); // ADD
+  const handleClose = () => setShowModal(false);     // ADD
+  const handleOpen = () => setShowModal(true);       // ADD
 
   const toggle = (section: string) => {
     setOpenSection(openSection === section ? null : section);
   };
-
   const isOpen = (section: string) => openSection === section;
+
+  // ADD: Interceptar click en "Favoritos"
+  const handleFavoritesClick = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    if (!isAuth) {
+      e.preventDefault();
+      handleOpen();
+    } else {
+      // Opcional: cerrar el overlay al navegar autenticado
+      onClose();
+    }
+  };
 
   if (!show) return null;
 
@@ -59,12 +79,25 @@ export default function SiteMapOverlay({ show, onClose }: SiteMapOverlayProps) {
                   "Favoritos",
                 ].map((name) => (
                   <li key={name}>
-                    <Link
-                      to={name === "Todos los lugares" ? "/places" : `/places?category=${encodeURIComponent(name)}`}
-                      onClick={onClose} // 👈 cierra el overlay al hacer click
-                    >
-                      {name}
-                    </Link>
+                    {name === "Favoritos" ? (
+                      <Link
+                        to="/favorites"
+                        onClick={handleFavoritesClick} // <-- Intercepta cuando no hay sesión
+                      >
+                        {name}
+                      </Link>
+                    ) : (
+                      <Link
+                        to={
+                          name === "Todos los lugares"
+                            ? "/places"
+                            : `/places?category=${encodeURIComponent(name)}`
+                        }
+                        onClick={onClose}
+                      >
+                        {name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -77,10 +110,15 @@ export default function SiteMapOverlay({ show, onClose }: SiteMapOverlayProps) {
               Mi cuenta
               <span className="sitemap-arrow">{isOpen("miCuenta") ? "›" : "›"}</span>
             </button>
+
             {isOpen("miCuenta") && (
               <ul className="sitemap-sublist">
-                <li><Link to="/login" onClick={onClose}>Iniciar sesión</Link></li>
-                <li><Link to="/register" onClick={onClose}>Registrarse</Link></li>
+                {!isAuth && (
+                  <>
+                    <li><Link to="/login" onClick={onClose}>Iniciar sesión</Link></li>
+                    <li><Link to="/register" onClick={onClose}>Registrarse</Link></li>
+                  </>
+                )}
                 <li><Link to="/settings" onClick={onClose}>Ajustes</Link></li>
               </ul>
             )}
@@ -94,9 +132,7 @@ export default function SiteMapOverlay({ show, onClose }: SiteMapOverlayProps) {
             </button>
             {isOpen("resenas") && (
               <ul className="sitemap-sublist">
-                <li><Link to="/reviews" onClick={onClose}>Ver todas</Link></li>
-                <li><Link to="/reviews/usuarios" onClick={onClose}>De usuarios</Link></li>
-                <li><Link to="/reviews/lugares" onClick={onClose}>De lugares</Link></li>
+                <li><Link to="/reviews" onClick={onClose}>Ver Reseñas</Link></li>
               </ul>
             )}
           </li>
@@ -137,11 +173,35 @@ export default function SiteMapOverlay({ show, onClose }: SiteMapOverlayProps) {
         <hr className="my-4" />
 
         <footer className="sitemap-footer">
-        © {new Date().getFullYear()} BogToWorld. Todos los derechos reservados.
-        <Link to="/privacidad">Política de Privacidad</Link>
+          © {new Date().getFullYear()} BogToWorld. Todos los derechos reservados.
+          <Link to="/privacidad">Política de Privacidad</Link>
         </footer>
-
       </div>
+
+      {/* ADD: Modal reutilizado del Home */}
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>¡Antes de comenzar!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Debes iniciar sesión para acceder a tus favoritos.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleClose}>
+            Cerrar
+          </Button>
+          <Button
+            variant="success"
+            onClick={() => {
+              setShowModal(false);
+              onClose();
+              navigate("/login");
+            }}
+          >
+            Iniciar sesión
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

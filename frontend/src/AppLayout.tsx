@@ -1,9 +1,8 @@
 // frontend/src/layouts/AppLayout.tsx
 import { Link, Outlet, useLocation} from "react-router-dom";  // Importa la nueva página de favoritos
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "./context/useAuth";
 import "./App.css";
-import { useState } from "react";
 import SiteMapOverlay from "./SiteMapOverlay";
 
 
@@ -212,7 +211,7 @@ function UserMenu() {
   return (
     <div className="dropdown">
       <button
-        className="btn btn-outline-light dropdown-toggle d-flex align-items-center gap-2"
+        className="btn account-btn dropdown-toggle d-flex align-items-center gap-2 me-2"
         data-bs-toggle="dropdown"
       >
         <span
@@ -232,25 +231,62 @@ function UserMenu() {
   );
 }
 
-function SiteMapMenu() { 
-  return ( 
-  <li className="nav-item dropdown"> 
-  <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"> Más </a> 
-  <ul className="dropdown-menu"> <li><h6 className="dropdown-header">Lugares por categoría</h6>
-  </li> {CATEGORIES.map((c) => ( <li key={c}> <Link className="dropdown-item" to={`/places?category=${encodeURIComponent(c)}`}> {c} 
-  </Link> 
-  </li> ))} 
-  <li><hr className="dropdown-divider" /></li>
-   <li><h6 className="dropdown-header">Lugares por etiqueta</h6></li> 
-   <li><Link className="dropdown-item" to="/places?is_new=1">Nuevos
-   </Link>
-   </li> 
-   <li><hr className="dropdown-divider" /></li>
-    <li><h6 className="dropdown-header">Reseñas</h6></li> <li><Link className="dropdown-item" to="/reviews">Ver Reseñas
-    </Link></li> 
-    </ul> 
-    </li> 
-  ); }
+function SiteMapMenu() {
+  return (
+    <li className="nav-item dropdown">
+      {/* Botón en vez de <a> */}
+      <button
+        className="nav-link dropdown-toggle btn btn-link"
+        type="button"
+        data-bs-toggle="dropdown"
+      >
+        Más
+      </button>
+
+      <ul className="dropdown-menu">
+        <li>
+          <h6 className="dropdown-header">Lugares por categoría</h6>
+        </li>
+        {CATEGORIES.map((c) => (
+          <li key={c}>
+            <Link
+              className="dropdown-item"
+              to={`/places?category=${encodeURIComponent(c)}`}
+            >
+              {c}
+            </Link>
+          </li>
+        ))}
+
+        <li>
+          <hr className="dropdown-divider" />
+        </li>
+
+        <li>
+          <h6 className="dropdown-header">Lugares por etiqueta</h6>
+        </li>
+        <li>
+          <Link className="dropdown-item" to="/places?is_new=1">
+            Nuevos
+          </Link>
+        </li>
+
+        <li>
+          <hr className="dropdown-divider" />
+        </li>
+
+        <li>
+          <h6 className="dropdown-header">Reseñas</h6>
+        </li>
+        <li>
+          <Link className="dropdown-item" to="/reviews">
+            Ver Reseñas
+          </Link>
+        </li>
+      </ul>
+    </li>
+  );
+};
 
 function Footer() {
   const year = new Date().getFullYear();
@@ -309,7 +345,7 @@ function Footer() {
               <li><Link className="link-body-emphasis text-decoration-none" to="/ayuda/como-funciona">Cómo funciona BogToWorld</Link></li>
               <li><Link className="link-body-emphasis text-decoration-none" to="/ayuda/faq">Preguntas frecuentes</Link></li>
               <li><Link className="link-body-emphasis text-decoration-none" to="/soporte">Centro de soporte</Link></li>
-              <li><Link className="link-body-emphasis text-decoration-none" to="/reportar">Reportar un error</Link></li>
+              <li><Link className="link-body-emphasis text-decoration-none" to="/reportar">Reportar un error o tu experiencia</Link></li>
             </ul>
           </div>
 
@@ -342,47 +378,57 @@ function Footer() {
   );
 }
 
-function useHideNavbarOnScroll(breakpoint = 768) {
+function useHideNavbarOnScroll({
+  revealOffset = 24,
+  threshold = 6,
+}: { revealOffset?: number; threshold?: number } = {}) {
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(typeof window !== "undefined" ? window.scrollY : 0);
+  const ticking = useRef(false);
+
   useEffect(() => {
-    let lastY = window.scrollY;
+    const onScroll = () => {
+      const run = () => {
+        const y = window.scrollY || 0;
+        const dy = y - lastY.current;
 
-    const handleScroll = () => {
-      const nav = document.querySelector(".app-navbar") as HTMLElement | null;
-      if (!nav) return; // seguridad
+        // Siempre visible cerca del top
+        if (y <= revealOffset) {
+          setHidden(false);
+          lastY.current = y;
+          ticking.current = false;
+          return;
+        }
 
-      // En pantallas grandes siempre visible
-      if (window.innerWidth > breakpoint) {
-        nav.classList.remove("hide");
-        lastY = window.scrollY;
-        return;
+        // Evita “jitter”: ignora micro-movimientos
+        if (Math.abs(dy) < threshold) {
+          ticking.current = false;
+          return;
+        }
+
+        // Si baja (dy > 0) -> ocultar; si sube (dy < 0) -> mostrar
+        if (dy > 0) {
+          setHidden(true);
+        } else {
+          setHidden(false);
+        }
+
+        lastY.current = y;
+        ticking.current = false;
+      };
+
+      if (!ticking.current) {
+        ticking.current = true;
+        // Más suave y eficiente que calcular en cada evento
+        window.requestAnimationFrame(run);
       }
-
-      const currentY = window.scrollY;
-      if (currentY > lastY && currentY > 60) {
-        // Desplazando hacia abajo → ocultar
-        nav.classList.add("hide");
-      } else {
-        // Hacia arriba → mostrar
-        nav.classList.remove("hide");
-      }
-      lastY = currentY;
     };
 
-    const handleResize = () => {
-      const nav = document.querySelector(".app-navbar") as HTMLElement | null;
-      if (window.innerWidth > breakpoint && nav) {
-        nav.classList.remove("hide");
-      }
-    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [revealOffset, threshold]);
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [breakpoint]);
+  return hidden;
 }
 
 export default function AppLayout() {
@@ -390,16 +436,18 @@ export default function AppLayout() {
   const [showMap, setShowMap] = useState(false);
 
   // 👇 Hook que oculta/mostrar el navbar al hacer scroll
-  useHideNavbarOnScroll();
+  const navbarHidden = useHideNavbarOnScroll({ revealOffset: 24, threshold: 6 });
 
 return (
   <>
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3 app-navbar">
+    <nav className={`navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3 app-navbar ${
+    navbarHidden ? "navbar-hidden" : "navbar-visible"
+  }`}>
       <div className="container-fluid d-flex align-items-center">
 
         {/* ===== LEFT: LOGO + HAMBURGUESA (solo en escritorio) ===== */}
         <div className="d-flex align-items-center gap-3">
-          <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
+          <Link className="navbar-brand d-flex align-items-center gap-2 ms-2" to="/">
             <img
               src="/logo.png"
               alt="BogToWorld"
@@ -437,9 +485,27 @@ return (
                 <span>Reseñas</span>
               </Link>
             </li>
-            <li className="nav-item d-flex align-items-center gap-2">
+            <li className="nav-item d-flex align-items-center gap-2 nav-link">
               <img src="/ver-mas.png" alt="icono ver más" width={40} height={40} style={{ objectFit: "contain" }} />
               <SiteMapMenu />
+            </li>
+            <li className="nav-item d-flex align-items-center gap-2 nav-link">
+              {isAuth && (
+                <>
+                  <img
+                    src="/favoritos.png"
+                    alt="icono ver más"
+                    width={30}
+                    height={30}
+                    className="d-inline-block align-middle"
+                    style={{ objectFit: "contain" }}
+                  />
+
+                  <Link className="nav-link" to="/favorites">
+                    Mis Favoritos
+                  </Link>
+                </>
+              )}
             </li>
           </ul>
         </div>

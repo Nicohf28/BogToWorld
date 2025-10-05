@@ -14,6 +14,7 @@ export default function Reportar() {
           <li>Indica la página o sección donde ocurrió.</li>
           <li>Envía tu reporte a través del formulario de soporte o correo de contacto.</li>
         </ol>
+        <p>Para realizar tu reporte, ingresa al siguiente formulario: <a href="https://docs.google.com/forms/d/e/1FAIpQLSdD5yV7MlQIjbUMd6H7x1z3fw7qLNi-ULHWRTSuz8M0OxYbLg/viewform">click aquí</a></p>
       </section>
 
       <section className="mb-4">

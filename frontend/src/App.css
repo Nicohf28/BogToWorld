@@ -37,10 +37,11 @@
 /* Dropdown dentro del header */
 .app-header .dropdown-menu {
   /* Fondo claro para legibilidad; si prefieres oscuro, cámbialo */
-  background: #ffffff;
+  background: #d6cfcf;
   border: 0;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
+
 .app-header .dropdown-item {
   color: #111827;
 }
@@ -592,6 +593,11 @@ nav.app-navbar {
   transform: translateY(-2px);
 }
 
+.img-fav {
+  color: #4c360a !important;
+  transform: translateY(-2px);
+}
+
 /* ===== BOTÓN HAMBURGUESA ===== */
 .navbar-toggler {
   border: none;
@@ -816,4 +822,105 @@ footer a:hover {
   color: #000;
 }
 
+/* Eleva el navbar por encima del resto del layout */
+nav.app-navbar {
+  position: relative;
+  z-index: 1045; /* > dropdown (1000) y > sticky (1020) */
+}
 
+/* Fuerza el menú a ir encima de todo lo no-modal */
+nav.app-navbar .dropdown-menu {
+  position: absolute;   /* ya lo es en Bootstrap, lo reforzamos */
+  z-index: 2000;        /* por encima de category rail, etc. */
+  background: #fff;     /* sólido, sin transparencia */
+  opacity: 1;           /* nunca translúcido */
+  filter: none;         /* por si algún filtro global aplicaba */
+}
+
+/* (Opcional) deja la rail “debajo” del navbar */
+.category-rail-fullwidth {
+  position: relative;
+  z-index: 1;
+}
+
+/* Navbar pegado arriba y por encima del contenido */
+nav.app-navbar {
+  position: sticky;      /* Si no funciona por el layout, usa la variante FIXED de abajo */
+  top: 0;
+  z-index: 1045;
+  transition: transform 0.22s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Estados controlados por navbarHidden */
+nav.app-navbar.navbar-visible {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+nav.app-navbar.navbar-hidden {
+  transform: translateY(-100%);
+  pointer-events: none; /* evita que bloquee clics cuando está fuera de vista */
+}
+
+/* --- VARIANTE (por si sticky no se ve por overflow/transform en padres) ---
+nav.app-navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1045;
+  transition: transform 0.22s ease;
+}
+:root { --navbar-h: 72px; }     /* ajusta a la altura real de tu navbar */
+body .app-main {                 /* o el contenedor principal que empuje el contenido */
+  padding-top: var(--navbar-h);
+}
+
+/* Margen extra para el logo cuando haga falta (alternativa a ms-2) */
+.app-navbar .navbar-brand img.brand-logo {
+  margin-left: .5rem; /* opcional si prefieres no usar ms-2 */
+}
+
+/* Botón 'Mi cuenta' con paleta del sitio */
+.app-navbar .account-btn {
+  background-color: #a37519;   /* base café */
+  color: #fff;
+  border: 2px solid #7b560b;
+  transition: all .2s ease;
+}
+
+.app-navbar .account-btn:hover,
+.app-navbar .account-btn:focus {
+  background-color: #c09236;   /* hover amarillo */
+  border-color: #c09236;
+  color: #fff;
+}
+
+/* Si prefieres fijar el margen por CSS en vez de me-2: */
+/* .app-navbar .account-btn { margin-right: .5rem; } */
+
+/* Paginado */
+.btw-pagination {
+  --btw-accent: #7b560b; /* antes estaba #4c360a */
+  --bs-pagination-color: var(--btw-accent);
+  --bs-pagination-hover-color: var(--btw-accent);
+  --bs-pagination-focus-color: var(--btw-accent);
+  --bs-pagination-active-bg: var(--btw-accent);
+  --bs-pagination-active-border-color: var(--btw-accent);
+  --bs-pagination-border-color: color-mix(in oklab, var(--btw-accent) 25%, transparent);
+  --bs-pagination-hover-bg: color-mix(in oklab, var(--btw-accent) 12%, transparent);
+  --bs-pagination-focus-box-shadow: 0 0 0 .2rem color-mix(in oklab, var(--btw-accent) 25%, transparent);
+  --bs-pagination-disabled-color: color-mix(in oklab, var(--btw-accent) 50%, #bbb);
+}
+
+/* Scope de Reviews: cambia el “primary” a #7b560b */
+.reviews-scope .btn.btn-outline-primary {
+  --bs-btn-color: #7b560b;
+  --bs-btn-border-color: #7b560b;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #7b560b;
+  --bs-btn-hover-border-color: #7b560b;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #7b560b;
+  --bs-btn-active-border-color: #7b560b;
+}

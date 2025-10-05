@@ -29,7 +29,7 @@ export default function Reviews() {
   }, [page, pageSize]);
 
   return (
-    <div className="my-3">
+    <div className="my-3 reviews-scope">
       <h2>Reseñas</h2>
       {loading && <div className="alert alert-info">Cargando reseñas…</div>}
       {!loading && data.length === 0 && (
@@ -86,7 +86,7 @@ export default function Reviews() {
       {/* Paginado */}
       {totalPages > 1 && (
         <nav className="mt-3">
-          <ul className="pagination">
+          <ul className="pagination btw-pagination">
             <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
               <button className="page-link" onClick={() => setPage((p) => Math.max(1, p - 1))}>
                 Anterior
