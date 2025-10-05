@@ -1,0 +1,86 @@
+
+.ajustes-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
+  background-color: #fff7e756; /* crema suave de la marca */
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  color: #4c360a; /* café oscuro */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.ajustes-container h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #4c360a;
+}
+
+.ajustes-container p {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #7a5b3b; /* café medio */
+}
+
+.ajustes-section {
+  margin-bottom: 2rem;
+  padding: 1.2rem 1.5rem;
+  background-color: #af6c3c19; /* card clara */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ajustes-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ajustes-section h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #8c5c1a;
+}
+
+.ajustes-section p {
+  margin-bottom: 1rem;
+  color: #5a3d1c;
+}
+
+.ajustes-section ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.ajustes-section ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #e1d7c9;
+  font-size: 0.96rem;
+  color: #5a3d1c;
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: default;
+}
+
+.ajustes-section ul li:last-child {
+  border-bottom: none;
+}
+
+.ajustes-section ul li::before {
+  content: "⚙️"; /* icono decorativo */
+  display: inline-block;
+  font-size: 1rem;
+  color: #8c5c1a; /* café medio */
+}
+
+.ajustes-section ul li:hover {
+  background-color: #f9e8d4;
+  color: #4c360a;
+}

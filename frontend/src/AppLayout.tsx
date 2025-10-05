@@ -1,8 +1,11 @@
 // frontend/src/layouts/AppLayout.tsx
 import { Link, Outlet, useLocation} from "react-router-dom";  // Importa la nueva página de favoritos
-
+import React, { useEffect } from "react";
 import { useAuth } from "./context/useAuth";
 import "./App.css";
+import { useState } from "react";
+import SiteMapOverlay from "./SiteMapOverlay";
+
 
 type IconComponent = (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
 
@@ -91,28 +94,22 @@ function CategoryRail({ items }: { items: readonly string[] }) {
         <div className="category-track">
           {items.map((c) => {
             const Icon: IconComponent = Icons[c] ?? DefaultIcon;
+
             const isActive = activeCategory.toLowerCase() === c.toLowerCase();
 
-            return (
-              <div key={c} className="category-card">
-                <Link
-                  to={`/places?category=${encodeURIComponent(c)}`}
-                  className={
-                    "d-inline-flex flex-column align-items-center text-center text-decoration-none text-body" +
-                    (isActive ? " is-active" : "")
-                  }
-                >
-                  {/* contenedor para aplicar el círculo activo */}
-                  <span className="icon-wrap" aria-hidden="true">
-                    <Icon />
-                  </span>
-                  <small className="mt-1 label">{c}</small>
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+            return ( 
+            <div key={c} className="category-card"> 
+              <Link 
+                to={`/places?category=${encodeURIComponent(c)}`} 
+              className={ "d-inline-flex flex-column align-items-center text-center text-decoration-none text-body" + (isActive ? " is-active" : "") } 
+              > {/* contenedor para aplicar el círculo activo */} 
+              <span className="icon-wrap" aria-hidden="true"> <Icon /> 
+              </span> 
+              <small className="mt-1 label">{c}</small> 
+              </Link> 
+              </div> ); })} 
+              </div> 
+            </div>
 
       {/* Botones opcionales */}
       <button
@@ -202,14 +199,16 @@ function Breadcrumbs() {
 
 function UserMenu() {
   const { isAuth, logout } = useAuth();
+
   if (!isAuth) {
     return (
-      <div className="d-flex gap-2">
-        <Link className="btn btn-outline-light" to="/login">Iniciar Sesión</Link>
-        <Link className="btn btn-outline-light" to="/register">Registrarse</Link>
+      <div className="d-flex gap-2 w-100 user-btn-container">
+        <Link className="user-btn flex-fill text-center" to="/login">Iniciar Sesión</Link>
+        <Link className="user-btn flex-fill text-center" to="/register">Registrarse</Link>
       </div>
     );
   }
+
   return (
     <div className="dropdown">
       <button
@@ -233,31 +232,25 @@ function UserMenu() {
   );
 }
 
-function SiteMapMenu() {
-  return (
-    <li className="nav-item dropdown">
-      <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
-        Más
-      </a>
-      <ul className="dropdown-menu">
-        <li><h6 className="dropdown-header">Lugares por categoría</h6></li>
-        {CATEGORIES.map((c) => (
-          <li key={c}>
-            <Link className="dropdown-item" to={`/places?category=${encodeURIComponent(c)}`}>
-              {c}
-            </Link>
-          </li>
-        ))}
-        <li><hr className="dropdown-divider" /></li>
-        <li><h6 className="dropdown-header">Lugares por etiqueta</h6></li>
-        <li><Link className="dropdown-item" to="/places?is_new=1">Nuevos</Link></li>
-        <li><hr className="dropdown-divider" /></li>
-        <li><h6 className="dropdown-header">Reseñas</h6></li>
-        <li><Link className="dropdown-item" to="/reviews">Ver Reseñas</Link></li>
-      </ul>
-    </li>
-  );
-}
+function SiteMapMenu() { 
+  return ( 
+  <li className="nav-item dropdown"> 
+  <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"> Más </a> 
+  <ul className="dropdown-menu"> <li><h6 className="dropdown-header">Lugares por categoría</h6>
+  </li> {CATEGORIES.map((c) => ( <li key={c}> <Link className="dropdown-item" to={`/places?category=${encodeURIComponent(c)}`}> {c} 
+  </Link> 
+  </li> ))} 
+  <li><hr className="dropdown-divider" /></li>
+   <li><h6 className="dropdown-header">Lugares por etiqueta</h6></li> 
+   <li><Link className="dropdown-item" to="/places?is_new=1">Nuevos
+   </Link>
+   </li> 
+   <li><hr className="dropdown-divider" /></li>
+    <li><h6 className="dropdown-header">Reseñas</h6></li> <li><Link className="dropdown-item" to="/reviews">Ver Reseñas
+    </Link></li> 
+    </ul> 
+    </li> 
+  ); }
 
 function Footer() {
   const year = new Date().getFullYear();
@@ -349,121 +342,141 @@ function Footer() {
   );
 }
 
+function useHideNavbarOnScroll(breakpoint = 768) {
+  useEffect(() => {
+    let lastY = window.scrollY;
+
+    const handleScroll = () => {
+      const nav = document.querySelector(".app-navbar") as HTMLElement | null;
+      if (!nav) return; // seguridad
+
+      // En pantallas grandes siempre visible
+      if (window.innerWidth > breakpoint) {
+        nav.classList.remove("hide");
+        lastY = window.scrollY;
+        return;
+      }
+
+      const currentY = window.scrollY;
+      if (currentY > lastY && currentY > 60) {
+        // Desplazando hacia abajo → ocultar
+        nav.classList.add("hide");
+      } else {
+        // Hacia arriba → mostrar
+        nav.classList.remove("hide");
+      }
+      lastY = currentY;
+    };
+
+    const handleResize = () => {
+      const nav = document.querySelector(".app-navbar") as HTMLElement | null;
+      if (window.innerWidth > breakpoint && nav) {
+        nav.classList.remove("hide");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [breakpoint]);
+}
+
 export default function AppLayout() {
   const { isAuth } = useAuth();
+  const [showMap, setShowMap] = useState(false);
 
-  return (
-    <div className="container">
+  // 👇 Hook que oculta/mostrar el navbar al hacer scroll
+  useHideNavbarOnScroll();
 
-      {/* ====== HEADER COMPLETO ====== */}
-      <header className="app-header rounded mt-3">
-        <nav className="navbar navbar-expand-lg app-navbar">
-          <div className="container-fluid">
-            <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
-              <img
-                src="/logo.png"
-                alt="BogToWorld"
-                width={80}
-                height={80}
-                className="d-inline-block align-text-top"
-                style={{ objectFit: "contain" }}
-              />
-              <strong>
-                <span className="brand-title">BogToWorld</span>
-              </strong>
-            </Link>
+return (
+  <>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3 app-navbar">
+      <div className="container-fluid d-flex align-items-center">
 
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navContent"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
+        {/* ===== LEFT: LOGO + HAMBURGUESA (solo en escritorio) ===== */}
+        <div className="d-flex align-items-center gap-3">
+          <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
+            <img
+              src="/logo.png"
+              alt="BogToWorld"
+              width={60}
+              height={60}
+              style={{ objectFit: "contain" }}
+            />
+            <strong>
+              <span className="brand-title">BogToWorld</span>
+            </strong>
+          </Link>
 
-            <div id="navContent" className="collapse navbar-collapse">
-              {/* separa pares entre sí con gap; sigue centrado con mx-auto */}
-              <ul className="navbar-nav mx-auto d-flex flex-row gap-4 gap-lg-5">
+          {/* Botón hamburguesa visible solo en lg+ */}
+          <button
+            className="navbar-toggler d-none d-lg-block"
+            type="button"
+            onClick={() => setShowMap(true)}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
 
-                <li className="nav-item">
-                  <Link className="nav-link d-flex align-items-center gap-2" to="/places">
-                    <img
-                      src="/lugar.png"
-                      alt="icono lugar"
-                      width={40}
-                      height={40}
-                      className="d-inline-block"
-                      style={{ objectFit: "contain" }}
-                    />
-                    <span>Lugares</span>
-                  </Link>
-                </li>
+        {/* ===== CENTER: LINKS DE NAVEGACIÓN ===== */}
+        <div className="collapse navbar-collapse justify-content-center">
+          <ul className="navbar-nav d-flex flex-row align-items-center gap-3 m-0 p-0" style={{ listStyle: "none" }}>
+            <li className="nav-item">
+              <Link className="nav-link d-flex align-items-center gap-2" to="/places">
+                <img src="/lugar.png" alt="icono lugar" width={40} height={40} style={{ objectFit: "contain" }} />
+                <span>Lugares</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link d-flex align-items-center gap-2" to="/reviews">
+                <img src="/resenias.png" alt="icono reseñas" width={40} height={40} style={{ objectFit: "contain" }} />
+                <span>Reseñas</span>
+              </Link>
+            </li>
+            <li className="nav-item d-flex align-items-center gap-2">
+              <img src="/ver-mas.png" alt="icono ver más" width={40} height={40} style={{ objectFit: "contain" }} />
+              <SiteMapMenu />
+            </li>
+          </ul>
+        </div>
 
-                <li className="nav-item">
-                  <Link className="nav-link d-flex align-items-center gap-2" to="/reviews">
-                    <img
-                      src="/resenias.png"
-                      alt="icono reseñas"
-                      width={40}
-                      height={40}
-                      className="d-inline-block"
-                      style={{ objectFit: "contain" }}
-                    />
-                    <span>Reseñas</span>
-                  </Link>
-                </li>
+        {/* ===== RIGHT: BOTONES DE USUARIO ===== */}
+        <div className="d-flex align-items-center gap-2 ms-auto">
+          <UserMenu />
+        </div>
 
-                <li className="nav-item d-flex align-items-center gap-2">
-                  <img
-                    src="/ver-mas.png"
-                    alt="icono ver más"
-                    width={40}
-                    height={40}
-                    className="d-inline-block align-middle"
-                    style={{ objectFit: "contain" }}
-                  />
-                  <SiteMapMenu />
-                </li>
+        {/* ===== HAMBURGUESA en móviles ===== */}
+        <button
+          className="navbar-toggler d-lg-none ms-2"
+          type="button"
+          onClick={() => setShowMap(true)}
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
 
-                <li className="nav-item d-flex align-items-center gap-2">
-                  {isAuth && (
-                    <>
-                      <img
-                        src="/ver-mas.png"
-                        alt="icono ver más"
-                        width={40}
-                        height={40}
-                        className="d-inline-block align-middle"
-                        style={{ objectFit: "contain" }}
-                      />
-
-                      <Link className="nav-link" to="/favorites">
-                        Mis Favoritos
-                      </Link>
-                    </>
-                  )}
-                </li>
-              </ul>
-
-              {/* Empuja el menú de usuario a la derecha */}
-              <div className="ms-auto">
-                <UserMenu />
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        <CategoryRail items={CATEGORIES} />
-      </header>
-      {/* ====== /HEADER ====== */}
-
-      <Breadcrumbs />
-
-      <Outlet />
-
-      <Footer />
-
+    {/* ===== CATEGORÍAS ===== */}
+    <div className="category-rail-fullwidth">
+      <CategoryRail items={CATEGORIES} />
     </div>
-  );
+
+    {/* ===== CONTENIDO PRINCIPAL ===== */}
+    <main className="app-main container">
+      <Breadcrumbs />
+      <Outlet />
+    </main>
+
+    {/* ===== FOOTER ===== */}
+    <Footer />
+
+    {/* 🔸 MAPA DEL SITIO (OVERLAY) */}
+    <SiteMapOverlay show={showMap} onClose={() => setShowMap(false)} />
+  </>
+);
+
 }

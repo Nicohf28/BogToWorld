@@ -1,0 +1,137 @@
+/* frontend/src/SiteMapOverlay.css */
+
+/* Contenedor principal del overlay */
+.sitemap-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(218, 218, 218, 0.95); /* fondo cálido semi-transparente */
+  z-index: 1050;
+  overflow-y: auto;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Contenido del panel */
+.offcanvas-body {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff8f0;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease forwards;
+}
+
+/* Animación de aparición */
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Botón volver */
+.sitemap-back-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4c360a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sitemap-back-btn:hover {
+  color: #7a531a;
+}
+
+/* Lista principal */
+.sitemap-list {
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+/* Botones de sección */
+.sitemap-parent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  color: #4c360a;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.sitemap-parent:hover {
+  color: #7a531a;
+}
+
+/* Flechas de apertura */
+.sitemap-arrow {
+  font-size: 1.3rem;
+  transition: transform 0.2s;
+}
+
+/* Sublistas */
+.sitemap-sublist {
+  list-style: none;
+  padding-left: 20px;
+  margin-top: 5px;
+  border-left: 2px solid rgba(76, 54, 10, 0.3);
+}
+
+.sitemap-sublist li a {
+  display: block;
+  color: #6b4a1a;
+  text-decoration: none;
+  padding: 6px 0;
+  font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.sitemap-sublist li a:hover {
+  color: #9b6d2a;
+  transform: translateX(4px);
+}
+
+.sitemap-footer {
+  text-align: center;       /* Centra el contenido */
+  padding: 12px 0;          /* Espaciado */
+  color: #ffffff;           /* Letra blanca */
+  font-size: 0.9rem;
+}
+
+.sitemap-footer a {
+  color: #ffffff;           /* Letra blanca */
+  text-decoration: underline;
+  margin-left: 5px;
+  transition: color 0.2s ease;
+}
+
+.sitemap-footer a:hover {
+  color: #f5e4c3;           /* Café clarito al pasar el mouse */
+}
+
+
+/* Ajustes generales para scroll */
+.offcanvas-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.offcanvas-body::-webkit-scrollbar-thumb {
+  background-color: rgba(76, 54, 10, 0.3);
+  border-radius: 4px;
+}
+
+.offcanvas-body::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(76, 54, 10, 0.5);
+}
