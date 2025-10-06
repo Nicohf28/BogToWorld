@@ -1,11 +1,15 @@
+import "./Ajustes.css";
 
 export default function ComoFunciona() {
   return (
-    <div className="my-4">
+    <div className="ajustes-container">
       <h1>Cómo funciona BogToWorld</h1>
-      <p>BogToWorld es tu guía completa para explorar los mejores lugares de Bogotá. Sigue estos pasos para aprovechar la plataforma:</p>
+      <p>
+        BogToWorld es tu guía para explorar los mejores lugares de Bogotá. 
+        Sigue estos pasos para sacarle el máximo provecho.
+      </p>
 
-      <section className="mb-4">
+      <section className="ajustes-section">
         <h3>1. Explora lugares</h3>
         <p>Encuentra lugares de interés según categorías y etiquetas:</p>
         <ul>
@@ -16,7 +20,7 @@ export default function ComoFunciona() {
         </ul>
       </section>
 
-      <section className="mb-4">
+      <section className="ajustes-section">
         <h3>2. Lee y escribe reseñas</h3>
         <p>Accede a opiniones de otros usuarios y comparte tu experiencia:</p>
         <ul>
@@ -26,9 +30,9 @@ export default function ComoFunciona() {
         </ul>
       </section>
 
-      <section className="mb-4">
+      <section className="ajustes-section">
         <h3>3. Favoritos</h3>
-        <p>Marca tus lugares preferidos para encontrarlos rápidamente en el futuro:</p>
+        <p>Marca tus lugares preferidos para encontrarlos luego:</p>
         <ul>
           <li>Haz clic en el corazón en la tarjeta del lugar.</li>
           <li>Consulta tus favoritos en la sección dedicada.</li>
@@ -36,7 +40,7 @@ export default function ComoFunciona() {
         </ul>
       </section>
 
-      <section className="mb-4">
+      <section className="ajustes-section">
         <h3>4. Personaliza tu experiencia</h3>
         <p>Configura tu cuenta para recibir notificaciones y recomendaciones:</p>
         <ul>
