@@ -231,19 +231,27 @@ function UserMenu() {
   );
 }
 
-function SiteMapMenu() {
+function SiteMapMenu({ hide }: { hide?: boolean }) {
+  const [open, setOpen] = useState(false);
+
+  // 🔹 Cerrar automáticamente si hide = true
+  useEffect(() => {
+    if (hide) setOpen(false);
+  }, [hide]);
+
   return (
-    <li className="nav-item dropdown">
+    <>
       {/* Botón en vez de <a> */}
       <button
         className="nav-link dropdown-toggle btn btn-link"
         type="button"
-        data-bs-toggle="dropdown"
+        onClick={() => setOpen((o) => !o)}
       >
+        <img src="/ver-mas.png" alt="icono ver más" width={40} height={40} style={{ objectFit: "contain" }} />
         Más
       </button>
 
-      <ul className="dropdown-menu">
+      <ul className={`dropdown-menu ${open ? "show" : ""}`}>
         <li>
           <h6 className="dropdown-header">Lugares por categoría</h6>
         </li>
@@ -284,7 +292,7 @@ function SiteMapMenu() {
           </Link>
         </li>
       </ul>
-    </li>
+    </>
   );
 };
 
@@ -485,9 +493,8 @@ return (
                 <span>Reseñas</span>
               </Link>
             </li>
-            <li className="nav-item d-flex align-items-center gap-2 nav-link">
-              <img src="/ver-mas.png" alt="icono ver más" width={40} height={40} style={{ objectFit: "contain" }} />
-              <SiteMapMenu />
+            <li className="nav-item dropdown">
+              <SiteMapMenu hide={navbarHidden} />
             </li>
             <li className="nav-item d-flex align-items-center gap-2 nav-link">
               {isAuth && (
