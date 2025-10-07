@@ -1,7 +1,6 @@
 
 import "./Home.css";
-import Places from "./Places";
-import { useNavigate, Routes, Route } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import MapView from "./MapPlaces";
 import { useAuth } from "../context/useAuth";
 import { useState } from "react";
@@ -146,10 +145,6 @@ export default function Home() {
           <strong>Ver más lugares</strong>
         </button>
       </div>
-
-      <Routes>
-        <Route path="/places" element={<Places />} />
-      </Routes>
     </div>
   );
 }
