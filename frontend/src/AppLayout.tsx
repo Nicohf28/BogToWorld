@@ -145,6 +145,7 @@ const CATEGORIES = [
   "Museos",
 ] as const;
 
+
 function Breadcrumbs() {
   const { pathname, search } = useLocation();
   const params = new URLSearchParams(search);
@@ -167,21 +168,33 @@ function Breadcrumbs() {
 
   const parts = pathname.split("/").filter(Boolean);
 
+  // Construye la ruta acumulada progresivamente
+  const buildPath = (index: number) =>
+    "/" + parts.slice(0, index + 1).join("/");
+
   return (
     <nav aria-label="breadcrumb" className="mt-2">
       <ol className="breadcrumb mb-0">
-        {/* Siempre texto, sin Link, en negrilla */}
-        <li className="breadcrumb-item fw-semibold">Inicio</li>
+        {/* "Inicio" siempre lleva al home */}
+        <li className="breadcrumb-item fw-semibold">
+          <Link style={{ textDecoration: "none", color: "inherit" }} to="/">Inicio</Link>
+        </li>
 
         {parts.map((p, i) => {
           const isLast = i === parts.length - 1 && !activeCategory;
+          const path = buildPath(i);
+
           return (
             <li
               key={`${p}-${i}`}
               className={`breadcrumb-item fw-semibold${isLast ? " active" : ""}`}
               aria-current={isLast ? "page" : undefined}
             >
-              {toLabel(p)}
+              {isLast ? (
+                toLabel(p)
+              ) : (
+                <Link style={{ textDecoration: "none", color: "inherit" }} to={path}>{toLabel(p)}</Link>
+              )}
             </li>
           );
         })}
