@@ -1,4 +1,6 @@
 import type { Place } from "../../../types";
+import { Link } from "react-router-dom";
+import "./theme.css";
 
 /**
  * Card base reutilizable para todas las categorías.
@@ -18,14 +20,16 @@ export default function BasePlaceCard({
   return (
     <div className={`card h-100 ${accentClass}`} style={{ overflow: "hidden" }}>
       <div className="position-relative">
-        {place.image_url && (
-          <img
-            src={place.image_url}
-            alt={place.name}
-            className="card-img-top"
-            style={{ objectFit: "cover", height: 160 }}
-          />
-        )}
+        <Link to={`/places/${place.id}`} state={place} aria-label={`Ver detalle de ${place.name}`}>
+          {place.image_url && (
+            <img
+              src={place.image_url}
+              alt={place.name}
+              className="card-img-top"
+              style={{ objectFit: "cover", height: 160 }}
+            />
+          )}
+        </Link>
         {place.is_new === 1 && (
           <span className="badge bg-danger position-absolute top-0 start-0 m-2">
             NUEVO
@@ -39,7 +43,11 @@ export default function BasePlaceCard({
       </div>
 
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title">{place.name}</h5>
+        <h5 className="card-title">
+          <Link to={`/places/${place.id}`} state={place} className="text-reset text-decoration-none">
+            {place.name}
+          </Link>
+        </h5>
         {place.description && (
           <p className="card-text" style={{ flex: 1 }}>
             {place.description.length > 120
@@ -57,6 +65,9 @@ export default function BasePlaceCard({
             </span>
           )}
         </div>
+        <Link to={`/places/${place.id}`} state={place} className="btn btn-brand mt-3">
+          Ver detalle
+        </Link>
       </div>
     </div>
   );

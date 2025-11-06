@@ -15,6 +15,7 @@ import Reportar from "./pages/footer_pages/Reportar";
 import Terminos from "./pages/footer_pages/Terminos";
 import Privacidad from "./pages/footer_pages/Privacidad";
 import Cookies from "./pages/footer_pages/Cookies";
+import PlaceDetail from "./pages/PlaceDetail";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/places" element={<Places />} />
+        <Route path="/places/:id" element={<PlaceDetail />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/settings" element={<Ajustes />} />

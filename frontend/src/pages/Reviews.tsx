@@ -72,7 +72,16 @@ export default function Reviews() {
                     <p className="card-text">
                       <small className="text-muted">por {r.user_name}</small>
                     </p>
-                    <Link className="btn btn-outline-primary btn-sm" to={`/places?place=${r.place_id}`}>
+                    <Link
+                      className="btn btn-brand btn-sm"      
+                      to={`/places/${r.place_id}`}          
+                      state={{                              
+                        id: r.place_id,
+                        name: r.place_name,
+                        image_url: r.image_url,
+                        category: r.category,
+                      }}
+                    >
                       Ver lugar
                     </Link>
                   </div>

@@ -1,0 +1,24 @@
+:root{
+  --brand-brown: #4c360a;
+  --brand-brown-hover:#3f2d08;  /* un toque más oscuro */
+  --brand-brown-active:#2f2106; /* aún más oscuro */
+}
+
+.btn-brand{
+  background-color: var(--brand-brown);
+  border-color: var(--brand-brown);
+  color:#fff;
+}
+.btn-brand:hover,
+.btn-brand:focus{
+  background-color: var(--brand-brown-hover);
+  border-color: var(--brand-brown-hover);
+  color:#fff;
+}
+.btn-brand:active{
+  background-color: var(--brand-brown-active) !important;
+  border-color: var(--brand-brown-active) !important;
+}
+.btn-brand:focus-visible{
+  box-shadow: 0 0 0 .25rem rgba(76,54,10,.35);
+}
