@@ -145,3 +145,52 @@ UPDATE places SET address='Cra. 2 Este #21-48, Santa Fe' WHERE id=30; -- Santuar
 UPDATE places SET address='Cra. 6 #15-88, La Candelaria' WHERE id=31; -- Museo del Oro
 UPDATE places SET address='Cl. 11 #4-41, La Candelaria' WHERE id=32; -- Museo Botero
 UPDATE places SET address='Cra. 7 #28-66, Santa Fe' WHERE id=33; -- Museo Nacional de Colombia
+
+-- 1. Cambiar 'Iglesia de San Francisco' por 'Palacio de San Francisco'
+UPDATE places
+SET name = 'Palacio de San Francisco'
+WHERE name = 'Iglesia de San Francisco';
+
+-- 2. Cambiar 'Bolera El Salitre' por 'Bolera Escape'
+UPDATE places
+SET name = 'Bolera Escape',
+    description = 'Bolera Escape es un lugar lleno de energía, donde la música y el entretenimiento se fusionan.',
+    category = 'Boleras',
+    address = 'Carrera 18 # 40 Sur – 18.',
+    city = 'Bogotá',
+    image_url = 'http://localhost:4000/static/places/bolera-escape.webp',
+    is_new = 0
+WHERE name = 'Bolera El Salitre';
+
+-- 3. Cambiar 'Strike Bowling Parque La Colina' por 'Ice Bowling'
+UPDATE places
+SET name = 'Ice Bowling',
+    description = 'Atrévete a participar en los mejores torneos de bolos en Bogotá. Ya sea en nuestros torneos Ice Bowling o en torneos externos, para todas las categorías.',
+    category = 'Boleras',
+    address = 'CC. El Edén. Av. Boyacá N° 72 12B-18, Bogotá. Local 3-107',
+    city = 'Bogotá',
+    image_url = 'http://localhost:4000/static/places/bolera-ice-bowling.webp',
+    is_new = 1
+WHERE name = 'Strike Bowling Parque La Colina';
+
+-- 4. Cambiar 'Bowling Star Unicentro' por 'City Bolo Club'
+UPDATE places
+SET name = 'City Bolo Club',
+    description = '¡Tu Bolera Bar!',
+    category = 'Boleras',
+    address = 'Transv 99 70A-89 Local 241C Zona D - Alamos Norte',
+    city = 'Bogotá',
+    image_url = 'http://localhost:4000/static/places/city-bolo-club.webp',
+    is_new = 0
+WHERE name = 'Bowling Star Unicentro';
+
+-- 5. Cambiar 'Centro de Alto Rendimiento (CAR) - Piscinas' por 'Piscinas CEFE El Tunal'
+UPDATE places
+SET name = 'Piscinas CEFE El Tunal',
+    description = 'El Centro de Felicidad CEFE El Tunal es un escenario diseñado para la recreación, el deporte y la cultura, todo en un solo lugar.',
+    category = 'Piscinas',
+    address = 'Calle 58 A sur # 19C - 66',
+    city = 'Bogotá',
+    image_url = 'http://localhost:4000/static/places/piscinas-CEFE.webp',
+    is_new = 1
+WHERE name = 'Centro de Alto Rendimiento (CAR) - Piscinas';
