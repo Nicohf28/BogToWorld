@@ -42,7 +42,7 @@ export default function BasePlaceCard({
         )}
       </div>
 
-      <div className="card-body d-flex flex-column">
+      <div className="card-body d-flex flex-column flex-grow-1">
         <h5 className="card-title">
           <Link to={`/places/${place.id}`} state={place} className="text-reset text-decoration-none">
             {place.name}
