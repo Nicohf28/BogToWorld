@@ -52,7 +52,7 @@ export default function BasePlaceCard({
             {place.category}
           </span>
           {place.address && (
-            <span className="badge bg-outline-secondary border">
+            <span className="badge bg-outline-secondary border text-secondary">
               {place.address}
             </span>
           )}
