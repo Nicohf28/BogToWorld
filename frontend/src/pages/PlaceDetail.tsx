@@ -58,7 +58,17 @@ export default function PlaceDetail() {
 
   return (
     <div className="container my-4">
-      <Link to="/places" className="btn btn-link px-0 mb-3">← Volver a lugares</Link>
+      <Link
+        to="/places"
+        className="btn mb-3"
+        style={{
+          backgroundColor: "#4c360a",
+          color: "white",
+          border: "none",
+        }}
+      >
+        ← Volver a lugares
+      </Link>
 
       <div className="card">
         {place.image_url && (
