@@ -1,5 +1,5 @@
 // frontend/src/pages/Places.tsx
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchPlaces } from "../services/api";
 import type { Place, Category } from "../types";
@@ -85,14 +85,16 @@ export default function Places() {
 
     fetchPlaces(params)
       .then((res: { data: Place[]; total: number }) => {
-        setData(res.data);
+        const unique = Array.from(new Map(res.data.map(p => [p.id, p])).values());
+        setData(unique);
         setTotal(res.total);
       })
       .catch((err: unknown) => console.error(err));
   }, [page, pageSize, q, category, isNew]);
 
   // 3) Sincronizar URL cuando se usan los controles (sin ternarios "huérfanos")
-  const updateURL = (next: {
+  const updateURL = useCallback(
+  (next: {
     q?: string;
     category?: Category | "";
     is_new?: boolean;
@@ -123,7 +125,9 @@ export default function Places() {
     }
 
     setSearchParams(sp, { replace: true });
-  };
+  },
+  [searchParams, setSearchParams]
+);
 
   // Handlers de filtros
   const onSearchChange = (value: string) => {
@@ -148,6 +152,14 @@ export default function Places() {
     setPage(p);
     updateURL({ page: p });
   };
+
+  useEffect(() => {
+    const tp = Math.max(1, Math.ceil(total / pageSize));
+    if (page > tp) {
+      setPage(tp);
+      updateURL({ page: tp }); // usa tu helper actual para sync URL
+    }
+  }, [total, pageSize, page, updateURL]);
 
   return (
     <div className="my-3">
