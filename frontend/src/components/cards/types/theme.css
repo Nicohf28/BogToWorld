@@ -22,3 +22,13 @@
 .btn-brand:focus-visible{
   box-shadow: 0 0 0 .25rem rgba(76,54,10,.35);
 }
+
+/* Grosor del “borde” visual sin afectar el layout */
+.card.accent-danger  { box-shadow: inset 0 0 0 1px var(--bs-danger); }
+.card.accent-primary { box-shadow: inset 0 0 0 1px var(--bs-primary); }
+.card.accent-secondary    { box-shadow: inset 0 0 0 1px var(--bs-secondary); }
+.card.accent-success { box-shadow: inset 0 0 0 1px var(--bs-success); }
+.card.accent-warning { box-shadow: inset 0 0 0 1px var(--bs-warning); }
+.card.accent-info    { box-shadow: inset 0 0 0 1px var(--bs-info); }
+.card.accent-dark    { box-shadow: inset 0 0 0 1px var(--bs-dark); }
+.card.accent-light    { box-shadow: inset 0 0 0 1px var(--bs-light); }

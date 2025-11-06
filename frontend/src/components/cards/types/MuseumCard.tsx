@@ -3,5 +3,5 @@ import type { Place } from "../../../types";
 import BasePlaceCard from "./BasePlaceCard";
 
 export default function MuseumCard({ place }: { place: Place }) {
-  return <BasePlaceCard place={place} accentClass="border-primary" accentLabel="Museo" />;
+  return <BasePlaceCard place={place} accentClass="accent-warning" accentLabel="Museo" />;
 }

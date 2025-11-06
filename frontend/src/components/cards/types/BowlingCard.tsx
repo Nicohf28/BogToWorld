@@ -3,5 +3,5 @@ import type { Place } from "../../../types";
 import BasePlaceCard from "./BasePlaceCard";
 
 export default function BowlingCard({ place }: { place: Place }) {
-  return <BasePlaceCard place={place} accentClass="border-dark" accentLabel="Bolera" />;
+  return <BasePlaceCard place={place} accentClass="accent-dark" accentLabel="Bolera" />;
 }

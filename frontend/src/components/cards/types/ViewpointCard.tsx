@@ -3,5 +3,5 @@ import type { Place } from "../../../types";
 import BasePlaceCard from "./BasePlaceCard";
 
 export default function ViewpointCard({ place }: { place: Place }) {
-  return <BasePlaceCard place={place} accentClass="border-secondary" accentLabel="Mirador" />;
+  return <BasePlaceCard place={place} accentClass="accent-secondary" accentLabel="Mirador" />;
 }

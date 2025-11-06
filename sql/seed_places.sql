@@ -176,7 +176,7 @@ WHERE name = 'Strike Bowling Parque La Colina';
 -- 4. Cambiar 'Bowling Star Unicentro' por 'City Bolo Club'
 UPDATE places
 SET name = 'City Bolo Club',
-    description = '¡Tu Bolera Bar!',
+    description = 'City Bolo Club es una bolera en Bogotá con el mejor servicio y tecnología para hacer de tus celebraciones la mejor experiencia. Torneos, eventos.',
     category = 'Boleras',
     address = 'Transv 99 70A-89 Local 241C Zona D - Alamos Norte',
     city = 'Bogotá',
